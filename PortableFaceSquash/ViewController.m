@@ -19,22 +19,23 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self setupVertexHandlesInView:self.editView];
 }
 
 - (void)setupVertexHandlesInView:(UIView *)view {
+    CGFloat sideLen = 44;
     NSArray<NSValue *> *initialPositions =
-    @[[NSValue valueWithCGPoint:CGPointMake(0, view.frame.size.height - 10)],
-      [NSValue valueWithCGPoint:CGPointMake(view.frame.size.width - 10, view.frame.size.height - 10)],
-      [NSValue valueWithCGPoint:CGPointMake(view.frame.size.width - 10, 0)],
+    @[[NSValue valueWithCGPoint:CGPointMake(0, view.frame.size.height - sideLen)],
+      [NSValue valueWithCGPoint:CGPointMake(view.frame.size.width - sideLen, view.frame.size.height - sideLen)],
+      [NSValue valueWithCGPoint:CGPointMake(view.frame.size.width - sideLen, 0)],
       [NSValue valueWithCGPoint:CGPointMake(0, 0)]
       ];
     
     [initialPositions enumerateObjectsUsingBlock:^(NSValue * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         CGPoint p = obj.CGPointValue;
-        PFSVertexHandle *vertex = [[PFSVertexHandle alloc] initWithFrame:CGRectMake(p.x, p.y, 10, 10)];
+        PFSVertexHandle *vertex = [[PFSVertexHandle alloc] initWithFrame:CGRectMake(p.x, p.y, sideLen, sideLen)];
         vertex.delegate = self;
         vertex.tag = idx;
         [view addSubview:vertex];
